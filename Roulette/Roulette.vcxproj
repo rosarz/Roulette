@@ -141,7 +141,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Roulette.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="roulette.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="roulette.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
