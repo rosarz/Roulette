@@ -1,35 +1,37 @@
-﻿#include "SFML/Graphics.hpp"
-#include <iostream>
+﻿#include <iostream>
+#include "game.h"
 
 int main()
-{
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Roulette");
-    //sf::CircleShape shape(100.f);
-    //shape.setFillColor(sf::Color::Green);
+{   
+    //Initialize game engine 
+    game game; 
 
+
+    //Texture loader 
     sf::Texture texture; 
     if(!texture.loadFromFile("assets/tlo.png"))
     {
         return 0; 
     }
 
-    sf::Sprite sprite; 
-    sprite.setTexture(texture); 
+    sf::Sprite background; 
+    background.setTexture(texture); 
 
-    while (window.isOpen())
+    //Game loop 
+    while (game.isRunning()) 
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+        //Update
+        game.update(); 
 
-        window.clear();
-        window.draw(sprite); 
-        window.display();
+        //Render
+        game.render(); 
+        
+        //Put up the background
+        //window.draw(background);
+
+        //Draw game
+        
     }
-
     return 0; 
 }
 
