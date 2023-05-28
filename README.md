@@ -1,4 +1,4 @@
-# Roulette Game 
+# :game_die: Roulette Game 
 Classic roullete game based on SFML engine 
 
 Update 0.1 / 24.05 
