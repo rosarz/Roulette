@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "game.h"
+#include "windowRender.h"
 
 int main()
 {   

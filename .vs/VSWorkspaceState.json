@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Roulette"
   ],
-  "SelectedNode": "\\Roulette.sln",
+  "SelectedNode": "\\Roulette\\main.cpp",
   "PreviewInSolutionExplorer": false
 }
