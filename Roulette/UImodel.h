@@ -5,14 +5,13 @@
 class UImodel
 {
 private:
+	
+public:
 	//Game objects
 	sf::RectangleShape stats;
 
-
-public:
-	void initStats(); 
-
-	void renderStats();
-
+	//Constructors
+	UImodel();
+	UImodel(float posx, float posy, float sizex, float sizey);
 };
 

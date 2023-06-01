@@ -19,7 +19,7 @@ void game::initWindow()
 
 void game::initFonts()
 {
-    if (this->font.loadFromFile("Font/PressStartRegular - ay8E.ttf"))
+    if (this->font.loadFromFile("Font/PressStartRegular.ttf"))
     {
         std::cout << "Error::initFonts()::Failed to load font" << std::endl; 
     }
@@ -84,13 +84,16 @@ game::game()
 {
 	this->initVar(); 
 	this->initWindow(); 
-    this->initEnemies(); 
-    this->initStats(); 
-    this->initStats2(); 
-    this->initStats3(); 
-    this->initStats4(); 
-    this->initText(); 
-    this->colorChange(); 
+    
+    
+    //this->initEnemies(); 
+    
+    //this->initStats(); 
+    //this->initStats2(); 
+    //this->initStats3(); 
+    //this->initStats4(); 
+    //this->initText(); 
+    //this->colorChange(); 
 }
 //Deconstructor
 game::~game()
@@ -197,12 +200,22 @@ void game::render()
     this->window->display();
 }
 
+//Render of all bottom stats
 void game::renderStats()
 {
-    this->window->draw(stats); 
-    this->window->draw(stats2); 
-    this->window->draw(stats3); 
-    this->window->draw(stats4); 
+    //this->window->draw(stats); 
+    //this->window->draw(stats2); 
+    //this->window->draw(stats3); 
+    //this->window->draw(stats4); 
+    UImodel botBar(50.0f, 585.0f, 295.0f, 70.0f);
+    UImodel botBar2(345.0f, 585.0f, 295.0f, 70.0f);
+    UImodel botBar3(640.0f, 585.0f, 295.0f, 70.0f);
+    UImodel botBar4(935.0f, 585.0f, 295.0f, 70.0f);
+    
+    this->window->draw(botBar.stats);
+    this->window->draw(botBar2.stats);
+    this->window->draw(botBar3.stats);
+    this->window->draw(botBar4.stats);
 }
 
 void game::colorChange()

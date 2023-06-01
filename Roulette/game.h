@@ -27,6 +27,8 @@ private:
 	sf::Vector2i mousePos;
 	sf::Vector2f mousePosView;
 
+	UImodel uiModel1; 
+
 	//Stats rectangle shape set
 	sf::Vector2f gridSize;
 	//unsigned gridSizeU = static_cast<unsigned>(gridSizeF); 
