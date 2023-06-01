@@ -1,5 +1,5 @@
 ﻿  game.cpp
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(177,70): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(212,70): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -8,7 +8,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(177,70): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(177,58): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(212,58): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -17,10 +17,9 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(177,58): warning C4244: "
           [
               T=float
           ]
-  main.cpp
   Trwa generowanie kodu
-  19 of 107 functions (17.8%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  2 of 118 functions ( 1.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
   Roulette.vcxproj -> C:\Users\kanal\source\repos\Roulette\x64\Release\Roulette.exe

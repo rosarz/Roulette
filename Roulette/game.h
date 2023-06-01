@@ -48,6 +48,9 @@ private:
 
 	//Game objects
 	sf::RectangleShape stats;
+	sf::RectangleShape stats2;
+	sf::RectangleShape stats3;
+	sf::RectangleShape stats4;
 
 	sf::RectangleShape enemy;
 	std::vector<sf::RectangleShape> enemies;
@@ -59,6 +62,9 @@ private:
 	void initText(); 
 	void initEnemies(); 
 	void initStats();
+	void initStats2();
+	void initStats3();
+	void initStats4();
 
 public:
 	//Constructor and destructor 
