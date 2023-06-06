@@ -5,7 +5,7 @@
 void game::initVar()
 {
 	this->window = nullptr; 
-	
+    this->mouseHeld = false;
 }
 
 void game::initWindow()
@@ -17,66 +17,43 @@ void game::initWindow()
     this->window->setFramerateLimit(144); 
 }
 
-void game::initFonts()
+void game::initBackground()
 {
-    if (this->font.loadFromFile("Font/PressStartRegular.ttf"))
+    if (!texture.loadFromFile("assets/tlo.png"))
     {
-        std::cout << "Error::initFonts()::Failed to load font" << std::endl; 
+        std::cout << "Error: Failed to load texture\n"; 
     }
 }
 
-void game::initText()
+void game::initBar()
 {
-    this->uiText.setFont(this->font); 
-    this->uiText.setCharacterSize(50); 
-    this->uiText.setFillColor(sf::Color::Red); 
-    this->uiText.setString("uiText_render"); 
-    this->uiText.setPosition(50.f, 50.f); 
+    botBar = UImodel(50.0f, 585.0f, 147.5f, 70.0f);
+    botBar2 = UImodel(197.5f, 585.0f, 147.5f, 70.0f);
+    botBar3 = UImodel(345.0f, 585.0f, 147.5f, 70.0f);
+    botBar4 = UImodel(492.5f, 585.0f, 147.5f, 70.0f);
+    botBar5 = UImodel(640.0f, 585.0f, 147.5f, 70.0f);
+    botBar6 = UImodel(787.5f, 585.0f, 147.5f, 70.0f);
+    botBar7 = UImodel(935.0f, 585.0f, 147.5f, 70.0f);
+    botBar8 = UImodel(1082.5f, 585.0f, 147.5f, 70.0f);
+
+    botBars.push_back(botBar);
+    botBars.push_back(botBar2);
+    botBars.push_back(botBar3);
+    botBars.push_back(botBar4);
+    botBars.push_back(botBar5);
+    botBars.push_back(botBar6);
+    botBars.push_back(botBar7);
+    botBars.push_back(botBar8);
 }
 
-void game::initEnemies() //z tego zrobic pasek z kasa, betem itd itd 
+void game::initFont()
 {
-    this->enemy.setPosition(50.f, 585.f);
-    this->enemy.setSize(sf::Vector2f(1200.f, 70.f));
-    this->enemy.setFillColor(sf::Color::Cyan);
-    this->enemy.setOutlineColor(sf::Color::Green);
-    this->enemy.setOutlineThickness(1.f);
-}
-
-void game::initStats()
-{
-    this->stats.setPosition(50.f, 585.f);
-    this->stats.setSize(sf::Vector2f(295.f, 70.f));
-    this->stats.setFillColor(sf::Color::Cyan);
-    this->stats.setOutlineColor(sf::Color::Green);
-    this->stats.setOutlineThickness(1.f);
-}
-
-void game::initStats2()
-{
-    this->stats2.setPosition(345.f, 585.f);
-    this->stats2.setSize(sf::Vector2f(295.f, 70.f));
-    this->stats2.setFillColor(sf::Color::Cyan);
-    this->stats2.setOutlineColor(sf::Color::Green);
-    this->stats2.setOutlineThickness(1.f);
-}
-
-void game::initStats3()
-{
-    this->stats3.setPosition(640.f, 585.f);
-    this->stats3.setSize(sf::Vector2f(295.f, 70.f));
-    this->stats3.setFillColor(sf::Color::Cyan);
-    this->stats3.setOutlineColor(sf::Color::Green);
-    this->stats3.setOutlineThickness(1.f);
-}
-
-void game::initStats4()
-{
-    this->stats4.setPosition(935.f, 585.f);
-    this->stats4.setSize(sf::Vector2f(295.f, 70.f));
-    this->stats4.setFillColor(sf::Color::Cyan);
-    this->stats4.setOutlineColor(sf::Color::Green);
-    this->stats4.setOutlineThickness(1.f);
+    if (!font.loadFromFile("Font/PressStartRegular.ttf"))
+    {
+        std::cout << "Error::initFonts()::Failed to load font from game.cpp" << std::endl;
+    }
+    else
+        std::cout << "Font loaded from game.cpp";
 }
 
 //Constructor 
@@ -84,16 +61,9 @@ game::game()
 {
 	this->initVar(); 
 	this->initWindow(); 
-    
-    
-    //this->initEnemies(); 
-    
-    //this->initStats(); 
-    //this->initStats2(); 
-    //this->initStats3(); 
-    //this->initStats4(); 
-    //this->initText(); 
-    //this->colorChange(); 
+    this->initBackground();  
+    this->initBar(); 
+    this->initFont(); 
 }
 //Deconstructor
 game::~game()
@@ -108,8 +78,7 @@ const bool game::isRunning() const
 }
 
 //Functions 
-
-void game::pollEvents() //naprawic bo jak klikam cokolwiek to sie wylacza!!!
+void game::pollEvents()
 {
     while (this->window->pollEvent(this->eve))
     {
@@ -119,25 +88,20 @@ void game::pollEvents() //naprawic bo jak klikam cokolwiek to sie wylacza!!!
             this->window->close();
             break;
         case sf::Event::KeyPressed:
-            if (this->eve.key.code = sf::Keyboard::Escape)
+            if (this->eve.key.code == sf::Keyboard::Escape)
                 this->window->close();
             break;
+
         }
     }
 }
 
+//Updates the mouse positions on console
 void game::updateMousePositions()
 {
-    /*
-    @return void 
-
-    Updates the mouse positions: 
-        - Mouse positions relative to window (vector2i) 
-    */
-
     this->mousePos = sf::Mouse::getPosition(*this->window);
     this->mousePosView = this->window->mapPixelToCoords(this->mousePos);
-    std::cout << "Mouse X: " << mousePos.x << " Mouse Pos Y: " << mousePos.y << "\n";
+    //std::cout << "Mouse X: " << mousePos.x << " Mouse Pos Y: " << mousePos.y << "\n";
 }
 
 void game::updateText()
@@ -145,36 +109,32 @@ void game::updateText()
 
 }
 
-void game::updateEnemies()
-{
-    
-}
-
 //Update the game logic 
 void game::update()
 {
+    //Game close logic
     this->pollEvents(); 
 
     //Update mouse position 
     this->updateMousePositions(); 
-
-    this->updateEnemies(); 
-    this->updateStats();  
 }
 
-void game::updateStats()
-{
-    
-}
 
-void game::renderText(sf::RenderTarget& target)
+void game::renderText(sf::RenderTarget &target) // w tej formie dzia³a uiText tekst1(24, sf::Color::Red, "Cash:1337", 60.f, 610.f);
 {
-    target.draw(this->uiText); 
-}
+    //jak zrobie to jako obiekt lokalny to dzia³a ok 
+    //ale jako obiekt w pliku nag³ówkowym nie dzia³a 
+    //naprawiæ!
 
-void game::renderEnemies()
-{
-    this->window->draw(enemy); 
+    tekst1 = uiText(24, sf::Color::Red, "Cash:1337", 60.f, 610.f);
+    tekst2 = uiText(24, sf::Color::Red, "Bet:2137", 355.f, 610.f);
+    tekst3 = uiText(24, sf::Color::Red, "O O O", 650.f, 610.f);
+    tekst4 = uiText(24, sf::Color::Red, "O O O", 945.f, 610.f);
+
+    target.draw(tekst1._text);
+    target.draw(tekst2._text);
+    target.draw(tekst3._text);
+    target.draw(tekst4._text);
 }
 
 void game::render()
@@ -190,44 +150,67 @@ void game::render()
     this->window->clear();
 
     //Draw the game
-    //this->renderEnemies();
-
-    this->renderStats(); 
+    this->renderBackground(); 
+    
+    this->renderBar(); 
     
     this->renderText(*this->window);
-    this->colorChange(); 
 
+    this->colorChange();
+    
     this->window->display();
 }
 
 //Render of all bottom stats
-void game::renderStats()
-{
-    //this->window->draw(stats); 
-    //this->window->draw(stats2); 
-    //this->window->draw(stats3); 
-    //this->window->draw(stats4); 
-    UImodel botBar(50.0f, 585.0f, 295.0f, 70.0f);
-    UImodel botBar2(345.0f, 585.0f, 295.0f, 70.0f);
-    UImodel botBar3(640.0f, 585.0f, 295.0f, 70.0f);
-    UImodel botBar4(935.0f, 585.0f, 295.0f, 70.0f);
-    
+void game::renderBar()
+{ 
     this->window->draw(botBar.stats);
     this->window->draw(botBar2.stats);
     this->window->draw(botBar3.stats);
     this->window->draw(botBar4.stats);
+    this->window->draw(botBar5.stats);
+    this->window->draw(botBar6.stats);
+    this->window->draw(botBar7.stats);
+    this->window->draw(botBar8.stats);
 }
+
+void game::renderBackground()
+{
+    background.setTexture(texture);
+
+    this->window->draw(background);
+}
+
 
 void game::colorChange()
 {
-    if (eve.type == sf::Event::MouseButtonPressed)
-        if(eve.key.code == sf::Mouse::Left)
-            if (stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
-            {
-                this->stats.setFillColor(sf::Color::Red);
-                this->stats4.setFillColor(sf::Color::Red);
-            }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) 
+    {
+        if (this->mouseHeld == false) 
+        {
+            mouseHeld = true; 
+            //for (auto& bar : botBars) {
+                if (botBar.stats.getGlobalBounds().contains(this->mousePosView)) {
+                    std::cout << "Currency reduced\n";
+                    //botBar.stats.setFillColor(sf::Color::White);
+                    //window->draw(bar.stats);
+                    //break;
+                }
+                if (botBar2.stats.getGlobalBounds().contains(this->mousePosView)) {
+                    std::cout << "Currency increased\n";
+                    
+                }
+                if (botBar3.stats.getGlobalBounds().contains(this->mousePosView)) {
+                    std::cout << "Bet reduced\n";
 
+                }
+                if (botBar4.stats.getGlobalBounds().contains(this->mousePosView)) {
+                    std::cout << "Bet increased\n";
+
+                }
+            //}
+        }
+    }
+    else
+        this->mouseHeld = false;
 }
-
-

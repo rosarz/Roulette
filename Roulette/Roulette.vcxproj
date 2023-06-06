@@ -146,6 +146,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="roulette.cpp" />
     <ClCompile Include="UImodel.cpp" />
+    <ClCompile Include="uiText.cpp" />
     <ClCompile Include="windowRender.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +154,11 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="roulette.h" />
     <ClInclude Include="UImodel.h" />
+    <ClInclude Include="uiText.h" />
     <ClInclude Include="windowRender.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Font\PressStartRegular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

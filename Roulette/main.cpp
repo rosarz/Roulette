@@ -7,17 +7,6 @@ int main()
     //Initialize game engine 
     game game; 
 
-
-    //Texture loader 
-    sf::Texture texture; 
-    if(!texture.loadFromFile("assets/tlo.png"))
-    {
-        return 0; 
-    }
-
-    sf::Sprite background; 
-    background.setTexture(texture); 
-
     //Game loop 
     while (game.isRunning()) 
     {
@@ -25,10 +14,7 @@ int main()
         game.update(); 
 
         //Render
-        game.render(); 
-        
-        //Put up the background
-        //window.draw(background);
+        game.render();
 
         //Draw game
         

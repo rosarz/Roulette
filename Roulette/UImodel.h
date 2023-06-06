@@ -14,4 +14,3 @@ public:
 	UImodel();
 	UImodel(float posx, float posy, float sizex, float sizey);
 };
-

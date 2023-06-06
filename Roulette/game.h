@@ -10,6 +10,8 @@
 #include "SFML/Network.hpp"
 
 #include "UImodel.h"
+#include "uiText.h"
+#include "player.h"
 
 /*
 	Class with the game engine
@@ -22,51 +24,35 @@ private:
 	sf::RenderWindow* window; 
 	sf::VideoMode videoMode; 
 	sf::Event eve; 
+	std::vector<UImodel> botBars;
+	bool mouseHeld = false; 
 
 	//Mouse positions
 	sf::Vector2i mousePos;
 	sf::Vector2f mousePosView;
-
-	UImodel uiModel1; 
-
-	//Stats rectangle shape set
-	sf::Vector2f gridSize;
-	//unsigned gridSizeU = static_cast<unsigned>(gridSizeF); 
 	
-	//Resources
-	sf::Font font; 
-
-	//Text 
-	sf::Text uiText; 
-
-	//Game logic
-	bool endGame;
-	unsigned points;
-	int health;
-	float enemySpawnTimer;
-	float enemySpawnTimerMax;
-	int maxEnemies;
-	bool mouseHeld;
+	//Background loader 
+	sf::Texture texture;
+	sf::Sprite background;
 
 	//Game objects
-	sf::RectangleShape stats;
-	sf::RectangleShape stats2;
-	sf::RectangleShape stats3;
-	sf::RectangleShape stats4;
+	UImodel botBar;
+	UImodel botBar2;
+	UImodel botBar3;
+	UImodel botBar4;
+	UImodel botBar5;
+	UImodel botBar6;
+	UImodel botBar7;
+	UImodel botBar8;
 
-	sf::RectangleShape enemy;
-	std::vector<sf::RectangleShape> enemies;
+	//Player object 
+	player p1; 
 	
 	//Private functions 
 	void initVar(); 
 	void initWindow(); 
-	void initFonts(); 
-	void initText(); 
-	void initEnemies(); 
-	void initStats();
-	void initStats2();
-	void initStats3();
-	void initStats4();
+	void initBackground();
+	void initBar();
 
 public:
 	//Constructor and destructor 
@@ -75,19 +61,29 @@ public:
 
 	//Accessors 
 	const bool isRunning() const; 
+ 
+	//Text objects		//lokalnie w metodzie dzia³a
+	uiText tekst1;
+	uiText tekst2;
+	uiText tekst3;
+	uiText tekst4;
+
+	sf::Font font;
+	void initFont();
+
+	sf::Text tekst;
 
 	//Functions 
 	void pollEvents(); 
 	void updateMousePositions(); 
 	void updateText();
-	void updateEnemies(); 
+	void updateStats(); 
 	void update(); 
 
-	void updateStats();
-	
-	void renderText(sf::RenderTarget &target); 
-	void renderEnemies(); 
-	void renderStats(); 
+	//Renders
+	void renderText(sf::RenderTarget& target);
+	void renderBar(); 
+	void renderBackground(); 
 	void render();
 
 	void colorChange();
