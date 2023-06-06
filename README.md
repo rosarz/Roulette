@@ -1,6 +1,10 @@
 # :game_die: Roulette Game 
 Classic roullete game based on SFML engine 
 
+Update 0.6 / 06.06 
++ added text fields to display currency and bet amount 
++ fixed bottom bar with button clicks
+
 Update 0.5 / 02.06
 + Made bottom bar class and implemented it for game class to work with the objects made of it 
 
