@@ -18,7 +18,7 @@ uiText::uiText(int size, sf::Color color, std::string text, float x, float y)
 
 void uiText::initFont()
 {
-    if (!font.loadFromFile("Font/PressStartRegular.ttf"))
+    if (!font.loadFromFile("Font/KongtextRegular-q36q.ttf"))
     {
         std::cout << "Error::initFonts()::Failed to load font" << std::endl;
     }

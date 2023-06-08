@@ -61,5 +61,8 @@
     <Font Include="Font\PressStartRegular.ttf">
       <Filter>Pliki zasobów</Filter>
     </Font>
+    <Font Include="Font\UglyByteFreeTrial.ttf">
+      <Filter>Pliki zasobów</Filter>
+    </Font>
   </ItemGroup>
 </Project>

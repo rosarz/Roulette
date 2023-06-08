@@ -1,14 +1,16 @@
 #pragma once
+#include <algorithm>
+
 class player
 {
 private:
 
 
 public:
-	int money; 
-	int bet; 
+	long money; 
+	long bet;
+	int last_bet;
 
-	player(); 
-
+	player();
 };
 
