@@ -1,7 +1,7 @@
 ﻿  game.cpp
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(145,67): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(145,46): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(443,89): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(137,67): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(137,46): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(446,89): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -10,7 +10,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(443,89): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(443,77): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(446,77): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -19,7 +19,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(443,77): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(455,73): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(460,79): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -28,7 +28,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(455,73): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(455,61): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(460,67): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -37,7 +37,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(455,61): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(464,75): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(476,81): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -46,7 +46,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(464,75): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(464,63): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(476,69): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -55,7 +55,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(464,63): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(475,80): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(495,86): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -64,7 +64,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(475,80): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(475,68): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(495,74): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -73,7 +73,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(475,68): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(486,81): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(511,87): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -82,7 +82,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(486,81): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(486,69): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(511,75): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -91,7 +91,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(486,69): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(497,81): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(527,87): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -100,7 +100,7 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(497,81): warning C4244: "
           [
               T=float
           ]
-C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(497,69): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(527,75): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -109,10 +109,117 @@ C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(497,69): warning C4244: "
           [
               T=float
           ]
-  main.cpp
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(551,89): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(551,77): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(568,79): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(568,67): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(589,81): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(589,69): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(606,86): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(606,74): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(621,87): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(621,75): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(636,87): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\kanal\source\repos\Roulette\Roulette\game.cpp(636,75): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
   Trwa generowanie kodu
-  2 of 300 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+  1 of 321 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    37 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
   Roulette.vcxproj -> C:\Users\kanal\source\repos\Roulette\x64\Release\Roulette.exe

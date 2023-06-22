@@ -7,9 +7,11 @@ private:
 
 
 public:
+
 	long money; 
 	long bet;
 	int last_bet;
+	int number; 
 
 	player();
 };
