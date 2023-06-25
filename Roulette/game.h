@@ -144,6 +144,7 @@ private:
 	uiText tekst1;
 	uiText tekst2;
 	uiText tekst3;
+	uiText tekst4;
 
 	//Private functions 
 	void initVar();
@@ -189,6 +190,8 @@ public:
 	void render();
 
 	void rouletteFunc();
+
+	void bet(); 
 
 	void colorChange();
 };

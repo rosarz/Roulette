@@ -163,7 +163,8 @@ void game::initRandom()
 //Constructor 
 game::game() : tekst1(24, sf::Color::Color(45, 147, 108), "ss.str()", 60.f, 610.f),
 tekst2(24, sf::Color::Color(45, 147, 108), "ss2.str()", 300.f, 610.f),
-tekst3(24, sf::Color::Color(45, 147, 108), "Undo\nbet", 520.f, 600.f)
+tekst3(24, sf::Color::Color(45, 147, 108), "Undo\nbet", 520.f, 600.f),
+tekst4(30, sf::Color::Color(45, 147, 108), "SPIN", 1020.f, 440.f)
 {
     this->initVar();
     this->initWindow();
@@ -211,7 +212,7 @@ void game::updateMousePositions()
 {
     this->mousePos = sf::Mouse::getPosition(*this->window);
     this->mousePosView = this->window->mapPixelToCoords(this->mousePos);
-    //std::cout << "Mouse X: " << mousePos.x << " Mouse Pos Y: " << mousePos.y << "\n";
+    std::cout << "Mouse X: " << mousePos.x << " Mouse Pos Y: " << mousePos.y << "\n";
 }
 
 void game::updateText()
@@ -263,6 +264,7 @@ void game::renderText(sf::RenderTarget& target) // w tej formie dzia³a uiText te
     target.draw(tekst1._text);
     target.draw(tekst2._text);
     target.draw(tekst3._text);
+    target.draw(tekst4._text);
     //target.draw(tekst4._text);
 }
 
@@ -687,4 +689,9 @@ void game::rouletteFunc()
     range25to36Field.stats.setOutlineColor(sf::Color::Black);
     range25to36Field.stats.setOutlineThickness(1.0f);
     this->window->draw(range25to36Field.stats);
+}
+
+void game::bet()
+{
+    
 }
