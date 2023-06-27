@@ -1,6 +1,9 @@
 # :game_die: Roulette Game 
 Classic roulette game based on SFML engine 
 
+Update 0.9 / 25.06
++ added a spin button and make an intro to put a bet func
+
 Update 0.8 / 22.06
 + added option to bet different numbers and combinations
 + blocked multi-betting the same numbers over and over
