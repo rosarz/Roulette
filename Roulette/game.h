@@ -4,6 +4,8 @@
 #include <vector>
 #include <sstream>
 #include <random>
+#include <chrono>
+#include <thread>
 
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
@@ -15,6 +17,7 @@
 #include "uiText.h"
 #include "player.h"
 
+
 //	TODO
 //	-  
 //	- 
@@ -25,14 +28,18 @@
 
 class game
 {
-private:
+protected:
 	//Variable
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event eve;
+	sf::Event eve2;
 	std::vector<UImodel> botBars;
 	bool mouseHeld = false;
 	bool mouseHeld2 = false;
+	bool mouseHeld3 = false;
+	bool buttonHeld = false;
+	bool buttonHeld2 = false;
 	std::vector<int> czerwone = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
 	std::vector<int> czarne = { 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 };
 	std::vector<int> range1to12 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
@@ -41,6 +48,26 @@ private:
 
 	std::vector<int> betNumbers; 
 
+	//Struktura BetType aby wiedziec jaki typ betu mamy
+	struct BetType {
+		std::string name;  // Nazwa rodzaju obstawiania
+		int payout;        // Wspó³czynnik wyp³aty
+
+		// Konstruktor
+		BetType(const std::string& _name, int _payout)
+			: name(_name), payout(_payout) {}
+	};
+	std::vector<BetType> betTypes;
+
+	//Menu
+	static const int MAX_OPTIONS = 3;
+	sf::Text menuTexts[MAX_OPTIONS];
+	int selectedItemIndex;
+
+	void initMenuText();
+	void menuSwitch();
+	bool io = false; 
+	
 
 	//Mouse positions
 	sf::Vector2i mousePos;
@@ -54,38 +81,6 @@ private:
 		sf::RectangleShape shape;
 		sf::Text numberText;
 	};
-
-	// Funkcja sprawdzaj¹ca, czy wygrana dla danego numeru
-	bool IsWinningNumber(int number, int bet)
-	{
-		//switch (bet.type)
-		//{
-		//case BetType::Number:
-		//	return number == bet.number;
-		//case BetType::Red:
-		//	for (int i = 0; i < TableSize; i++) {
-		//		//std::cout << number << std::endl;
-		//		if (czerwone[i] == number)
-		//			return number ;
-		//	}
-		//		return number;
-		//case BetType::Black:
-		//	for (int i = 0; i < TableSize; ++i) {
-		//		//std::cout << i << std::endl;
-		//		if (czarne[i] == number)
-		//			return number;
-		//	}
-		//case BetType::Range1To12:
-		//	return (number >= 1 && number <= 12);
-		//case BetType::Range13To24:
-		//	return (number >= 13 && number <= 24);
-		//case BetType::Range25To36:
-		//	return (number >= 25 && number <= 36);
-		//default:
-		//	return false;
-		//}
-		return false;
-	}
 
 	//Textures  
 	sf::Texture coin10Tex;
@@ -110,13 +105,6 @@ private:
 
 	//Game objects
 	UImodel botBar;
-	//UImodel botBar2;
-	//UImodel botBar3;
-	//UImodel botBar4;
-	//UImodel botBar5;
-	//UImodel botBar6;
-	//UImodel botBar7;
-	//UImodel botBar8;
 
 	//Roulette model 
 	std::vector<TableField> tableFields;
@@ -132,6 +120,7 @@ private:
 	std::random_device rd;
 	std::mt19937 gen;
 	std::uniform_int_distribution<> dist;
+	int randomNum; 
 
 	//Player object 
 	player p1;
@@ -145,7 +134,11 @@ private:
 	uiText tekst2;
 	uiText tekst3;
 	uiText tekst4;
-
+	uiText tekst5;
+	std::string tekst5text;
+	uiText tekst6;
+	uiText tekst7;
+	 
 	//Private functions 
 	void initVar();
 	void initWindow();
@@ -181,6 +174,7 @@ public:
 
 	//Renders
 	void renderText(sf::RenderTarget& target);
+	void renderMenu();
 	void renderBar();
 	void renderBackground();
 	void renderCoins();
@@ -188,10 +182,13 @@ public:
 	void renderGrid();
 	void renderTableField();
 	void render();
+	void render2();
+	void menuParts();
 
 	void rouletteFunc();
 
 	void bet(); 
+	void wheelSpin(); 
 
 	void colorChange();
 };

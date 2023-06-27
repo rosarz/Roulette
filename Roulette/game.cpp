@@ -71,23 +71,6 @@ void game::initTextures()
 void game::initBar()
 {
     botBar = UImodel(510.0f, 590.0f, 110.f, 70.0f);
-
-    //botBar2 = UImodel(197.5f, 585.0f, 147.5f, 70.0f);
-    //botBar3 = UImodel(345.0f, 585.0f, 147.5f, 70.0f);
-    //botBar4 = UImodel(492.5f, 585.0f, 147.5f, 70.0f);
-    //botBar5 = UImodel(640.0f, 585.0f, 147.5f, 70.0f);
-    //botBar6 = UImodel(787.5f, 585.0f, 147.5f, 70.0f);
-    //botBar7 = UImodel(935.0f, 585.0f, 147.5f, 70.0f);
-    //botBar8 = UImodel(1082.5f, 585.0f, 147.5f, 70.0f);
-
-    //botBars.push_back(botBar);
-    //botBars.push_back(botBar2);
-    //botBars.push_back(botBar3);
-    //botBars.push_back(botBar4);
-    //botBars.push_back(botBar5);
-    //botBars.push_back(botBar6);
-    //botBars.push_back(botBar7);
-    //botBars.push_back(botBar8);
 }
 
 void game::initWheelTex()
@@ -157,6 +140,10 @@ void game::initRandom()
     rd;
     gen = std::mt19937(rd());
     dist = std::uniform_int_distribution<>(0, TableSize - 1);
+    
+    //randomNum = dist(gen); 
+    randomNum = 3;
+    std::cout << randomNum; 
 }
 
 
@@ -164,8 +151,12 @@ void game::initRandom()
 game::game() : tekst1(24, sf::Color::Color(45, 147, 108), "ss.str()", 60.f, 610.f),
 tekst2(24, sf::Color::Color(45, 147, 108), "ss2.str()", 300.f, 610.f),
 tekst3(24, sf::Color::Color(45, 147, 108), "Undo\nbet", 520.f, 600.f),
-tekst4(30, sf::Color::Color(45, 147, 108), "SPIN", 1020.f, 440.f)
+tekst4(30, sf::Color::Color(45, 147, 108), "SPIN", 1020.f, 440.f),
+tekst5(30, sf::Color::Color(45, 147, 108), "ss3.str()", 350.f, 110.f),
+tekst6(30, sf::Color::Color(45, 147, 108), "EXIT", 1140.f, 20.f),
+tekst7(90, sf::Color::Color(45, 147, 108), "ROULETTE", 320.f, 210.f)
 {
+    this->initMenuText(); 
     this->initVar();
     this->initWindow();
     this->initBackground();
@@ -199,8 +190,10 @@ void game::pollEvents()
             this->window->close();
             break;
         case sf::Event::KeyPressed:
-            if (this->eve.key.code == sf::Keyboard::Escape)
-                this->window->close();
+            if (this->eve.key.code == sf::Keyboard::Escape){
+                io = false; 
+                this->window->clear();
+            }
             break;
 
         }
@@ -212,18 +205,22 @@ void game::updateMousePositions()
 {
     this->mousePos = sf::Mouse::getPosition(*this->window);
     this->mousePosView = this->window->mapPixelToCoords(this->mousePos);
-    std::cout << "Mouse X: " << mousePos.x << " Mouse Pos Y: " << mousePos.y << "\n";
+    //std::cout << "Mouse X: " << mousePos.x << " Mouse Pos Y: " << mousePos.y << "\n";
 }
 
 void game::updateText()
 {
     std::stringstream ss;
     std::stringstream ss2;
+    std::stringstream ss3;
+    
     ss << "Cash:" << p1.money;
     ss2 << "Bet:" << p1.bet;
+    ss3 << tekst5text;
 
     tekst1._text.setString(ss.str());
     tekst2._text.setString(ss2.str());
+    tekst5._text.setString(ss3.str());
 }
 
 void game::updateAnimation()
@@ -241,35 +238,111 @@ void game::update()
 
     //Update mouse position 
     this->updateMousePositions();
+
+    this->menuSwitch();
 }
 
 void game::renderText(sf::RenderTarget& target) // w tej formie dzia³a uiText tekst1(24, sf::Color::Red, "Cash:1337", 60.f, 610.f);
 {
-    //uiText tekst3(24, sf::Color::Red, "O O O", 650.f, 610.f);
-    //uiText tekst4(24, sf::Color::Red, "O O O", 945.f, 610.f);
-
-    //jak zrobie to jako obiekt lokalny to dzia³a ok 
-    //ale jako obiekt w pliku nag³ówkowym nie dzia³a 
-    //tak nie dzia³a nie wiem czemu
-    //tekst1 = uiText(24, sf::Color::Red, "Cash:1337", 60.f, 610.f);
-    //tekst2 = uiText(24, sf::Color::Red, "Bet:2137", 355.f, 610.f);
-    //tekst3 = uiText(24, sf::Color::Red, "O O O", 650.f, 610.f);
-    //tekst4 = uiText(24, sf::Color::Red, "O O O", 945.f, 610.f);
-    //Text objects		//lokalnie w metodzie dzia³a
-    //uiText tekst1;
-    //uiText tekst2;
-    //uiText tekst3;
-    //uiText tekst4;
-
     target.draw(tekst1._text);
     target.draw(tekst2._text);
     target.draw(tekst3._text);
     target.draw(tekst4._text);
-    //target.draw(tekst4._text);
+    target.draw(tekst5._text);
+    target.draw(tekst6._text);
+}
+
+void game::initMenuText()
+{
+    menuTexts[0].setFont(font);
+    menuTexts[0].setFillColor(sf::Color::Color(45, 147, 108));
+    menuTexts[0].setString("Start");
+    menuTexts[0].setPosition(sf::Vector2f(570, 350));
+
+    menuTexts[1].setFont(font);
+    menuTexts[1].setFillColor(sf::Color::Color(45, 147, 108));
+    menuTexts[1].setString("Settings");
+    menuTexts[1].setPosition(sf::Vector2f(530, 420));
+
+    menuTexts[2].setFont(font);
+    menuTexts[2].setFillColor(sf::Color::Color(45, 147, 108));
+    menuTexts[2].setString("Exit");
+    menuTexts[2].setPosition(sf::Vector2f(585, 490));
+}
+
+void game::renderMenu()
+{
+    for(int i = 0; i < MAX_OPTIONS; i++)
+    {
+        this->window->draw(menuTexts[i]);
+    }
+    this->window->draw(tekst7._text);
+}
+
+void game::menuSwitch()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+        if (this->buttonHeld == false)
+        {
+            buttonHeld = true;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+            {
+                std::cout << "Klawisz w gore";
+                menuTexts[selectedItemIndex].setFillColor(sf::Color::Color(45, 147, 108));
+                selectedItemIndex--;
+                menuTexts[selectedItemIndex].setFillColor(sf::Color::White);
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+            {
+                std::cout << "Klawisz w dol";
+                menuTexts[selectedItemIndex].setFillColor(sf::Color::Color(45, 147, 108));
+                selectedItemIndex++;
+                menuTexts[selectedItemIndex].setFillColor(sf::Color::White);
+            }
+        }
+    }
+    else
+    {
+        this->buttonHeld = false;
+    }
+}
+
+void game::menuParts()
+{
+    if (this->buttonHeld2 == false)
+    {
+        this->buttonHeld2 = true;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && selectedItemIndex == 0)
+        {
+            io = true;
+            std::cout << "0\n";
+            //this->window->clear();
+            
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && selectedItemIndex == 1)
+        {
+            this->window->clear(); 
+            tekst5text = "Unfortunatelly right now\nwe can't change settings";
+            this->window->draw(tekst5._text);
+            std::cout << "1\n";
+            std::chrono::seconds dura(5);
+            std::this_thread::sleep_for(dura);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && selectedItemIndex == 2)
+        {
+            this->window->close();
+            std::cout << "2\n";
+        }
+    }
+    else
+    {
+        this->buttonHeld2 = false;
+    }
 }
 
 void game::render()
 {
+    if (io == true) {
     /*
     @return void
     Render the game objects
@@ -278,10 +351,10 @@ void game::render()
     - display frame in window
     */
 
+
     this->window->clear();
 
     //Draw the game
-    this->rouletteFunc();
     this->renderBackground();
     this->renderBar();
     this->renderText(*this->window);
@@ -290,22 +363,31 @@ void game::render()
     this->renderCoins();
     this->renderWheel();
     this->rouletteFunc();
+    this->wheelSpin();
 
 
     this->window->display();
+    }
+}
+
+void game::render2()
+{
+    if (io == false)
+    {
+        this->window->clear();
+
+        this->menuParts();
+        this->renderBackground();
+        this->renderMenu();
+        
+        this->window->display();
+    }
 }
 
 //Render of all bottom stats
 void game::renderBar()
 {
     this->window->draw(botBar.stats);
-    //this->window->draw(botBar2.stats);
-    //this->window->draw(botBar3.stats);
-    //this->window->draw(botBar4.stats);
-    //this->window->draw(botBar5.stats);
-    //this->window->draw(botBar6.stats);
-    //this->window->draw(botBar7.stats);
-    //this->window->draw(botBar8.stats);
 }
 
 void game::renderBackground()
@@ -342,32 +424,38 @@ void game::colorChange()
             //for (auto& bar : botBars) { //for by³ wczeœniej do skrócenia tych instrukcji if ale nie wiem jak zrobiæ aby nie by³o kilkukrotnego wywo³ania wszystkich instrukcji wiêc zostawiam tak 
             if (coin10Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 10) {
                 std::cout << "Zwiekszono bet o 10\n";
+                tekst5text = "You have increased your\n      bet by 10";
                 p1.bet += 10;
                 p1.money -= 10;
                 std::cout << "Bet: " << p1.bet << "\nCash: " << p1.money << std::endl;
             }
             if (coin20Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 20) {
                 std::cout << "Zwiekszono bet o 20\n";
+                tekst5text = "You have increased your\n      bet by 20";
                 p1.bet += 20;
                 p1.money -= 20;
             }
             if (coin50Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 50) {
                 std::cout << "Zwiekszono bet o 50\n";
+                tekst5text = "You have increased your\n      bet by 50";
                 p1.bet += 50;
                 p1.money -= 50;
             }
             if (coin100Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 100) {
                 std::cout << "Zwiekszono bet o 100\n";
+                tekst5text = "You have increased your\n      bet by 100";
                 p1.bet += 100;
                 p1.money -= 100;
             }
             if (coin200Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 200) {
                 std::cout << "Zwiekszono bet o 200\n";
+                tekst5text = "You have increased your\n      bet by 200";
                 p1.bet += 200;
                 p1.money -= 200;
             }
             if (coin500Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 500) {
                 std::cout << "Zwiekszono bet o 500\n";
+                tekst5text = "You have increased your\n      bet by 500";
                 p1.bet += 500;
                 p1.money -= 500;
             }
@@ -390,32 +478,38 @@ void game::colorChange()
             mouseHeld = true;
             if (coin10Sprite.getGlobalBounds().contains(this->mousePosView) && p1.bet >= 10) {
                 std::cout << "Zmniejszono bet o 10\n";
+                tekst5text = "You have reduced your\n     bet by 10";
                 p1.bet -= 10;
                 p1.money += 10;
                 std::cout << "Bet: " << p1.bet << "\n Cash: " << p1.money;
             }
             if (coin20Sprite.getGlobalBounds().contains(this->mousePosView) && p1.bet >= 20) {
                 std::cout << "Zmniejszono bet o 20\n";
+                tekst5text = "You have reduced your\n     bet by 20";
                 p1.bet -= 20;
                 p1.money += 20;
             }
             if (coin50Sprite.getGlobalBounds().contains(this->mousePosView) && p1.bet >= 50) {
                 std::cout << "Zmniejszono bet o 50\n";
+                tekst5text = "You have reduced your\n     bet by 50";
                 p1.bet -= 50;
                 p1.money += 50;
             }
             if (coin100Sprite.getGlobalBounds().contains(this->mousePosView) && p1.bet >= 100) {
                 std::cout << "Zmniejszono bet o 100\n";
+                tekst5text = "You have reduced your\n     bet by 100";
                 p1.bet -= 100;
                 p1.money += 100;
             }
             if (coin200Sprite.getGlobalBounds().contains(this->mousePosView) && p1.bet >= 200) {
                 std::cout << "Zmniejszono bet o 200\n";
+                tekst5text = "You have reduced your\n     bet by 200";
                 p1.bet -= 200;
                 p1.money += 200;
             }
             if (coin500Sprite.getGlobalBounds().contains(this->mousePosView) && p1.bet >= 500) {
                 std::cout << "Zmniejszono bet o 500\n";
+                tekst5text = "You have reduced your\n     bet by 500";
                 p1.bet -= 500;
                 p1.money += 500;
             }
@@ -450,6 +544,7 @@ void game::rouletteFunc()
                     std::cout << "Wybrano liczbe: " << i + 1 << "\n";
                     betNumbers.push_back(i + 1); 
                     tableFields[i].shape.setOutlineColor(sf::Color::Green);
+                    betTypes.push_back(BetType("Number", 36));
                     for (auto a : betNumbers) {
                         std::cout << a << " \n";
                     }
@@ -462,11 +557,12 @@ void game::rouletteFunc()
             if (redField.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
                 std::cout << "Wybrano czerwone\n";
+                betTypes.push_back(BetType("Red", 2));
                 for (int i = 0; i < TableSize; ++i)
                 {
                     if (tableFields[i].shape.getFillColor() == sf::Color::Red) {
                         tableFields[i].shape.setOutlineColor(sf::Color::Green);
-                        betNumbers.push_back(i+1);
+                        betNumbers.push_back(i + 1);
                     }
                 }
                 for (auto a : betNumbers) {
@@ -478,6 +574,7 @@ void game::rouletteFunc()
             if (blackField.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
                 std::cout << "Wybrano czarne\n";
+                betTypes.push_back(BetType("Black", 2));
                 for (int i = 0; i < TableSize; ++i)
                 {
                     if (tableFields[i].shape.getOutlineColor() == sf::Color::Green)
@@ -497,6 +594,7 @@ void game::rouletteFunc()
             if (range1to12Field.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
                 std::cout << "Wybrano zakres liczb 1-12\n";
+                betTypes.push_back(BetType("1-12", 3));
                 for (int i = 0; i < 12; ++i)
                 {
                     if (tableFields[i].shape.getOutlineColor() == sf::Color::Green)
@@ -513,6 +611,7 @@ void game::rouletteFunc()
             if (range13to24Field.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
                 std::cout << "Wybrano zakres liczb 13-24\n";
+                betTypes.push_back(BetType("13-24", 3));
                 for (int i = 12; i < 24; ++i)
                 {
                     if (tableFields[i].shape.getOutlineColor() == sf::Color::Green)
@@ -529,6 +628,7 @@ void game::rouletteFunc()
             if (range25to36Field.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
                 std::cout << "Wybrano zakres liczb 25-36\n";
+                betTypes.push_back(BetType("25-36", 3));
                 for (int i = 24; i < 36; ++i)
                 {
                     if (tableFields[i].shape.getOutlineColor() == sf::Color::Green)
@@ -552,6 +652,10 @@ void game::rouletteFunc()
             {
                 if (tableFields[i].shape.getGlobalBounds().contains(mousePos.x, mousePos.y))
                 {
+                    if (!betTypes.empty())
+                        betTypes.pop_back();
+                    else
+                        std::cout << "betTypes is empty\n";
                     std::cout << "Odznaczono liczbe: " << i + 1 << "\n";
                     tableFields[i].shape.setOutlineColor(sf::Color::Black);
                     for (int j = 0; j < betNumbers.size(); j++)
@@ -565,10 +669,17 @@ void game::rouletteFunc()
             for (auto a : betNumbers) {
                 std::cout << a << " ";
             }
+            for (int i = 0; i < betTypes.size(); i++) {
+                std::cout << betTypes[i].name << "\n"; 
+            }
 
             // Sprawdzenie, czy klikniêcie nast¹pi³o na polu czerwonym
             if (redField.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
+                if (!betTypes.empty())
+                    betTypes.pop_back();
+                else
+                    std::cout << "betTypes is empty";
                 std::cout << "Odznaczono czerwone\n";
                 for (int i = 0; i < TableSize; ++i)
                 {
@@ -590,11 +701,16 @@ void game::rouletteFunc()
             // Sprawdzenie, czy klikniêcie nast¹pi³o na polu czarnym
             if (blackField.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
+                if (!betTypes.empty())
+                    betTypes.pop_back();
+                else
+                    std::cout << "betTypes is empty";
                 std::cout << "Odznaczono czarne\n";
                 for (int i = 0; i < TableSize; ++i)
                 {
                     if (tableFields[i].shape.getFillColor() == sf::Color::Black) {
                         tableFields[i].shape.setOutlineColor(sf::Color::Black);
+                        betTypes.clear();
                         for (int j = 0; j < betNumbers.size(); j++)
                         {
                             if (betNumbers[j] == i + 1)
@@ -607,6 +723,10 @@ void game::rouletteFunc()
             // Sprawdzenie, czy klikniêcie nast¹pi³o na polu 1-12
             if (range1to12Field.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
+                if (!betTypes.empty())
+                    betTypes.pop_back();
+                else
+                    std::cout << "betTypes is empty"; 
                 std::cout << "Odznaczono zakres liczb 1-12\n";
                 for (int i = 0; i < 12; ++i)
                 {
@@ -622,6 +742,10 @@ void game::rouletteFunc()
             // Sprawdzenie, czy klikniêcie nast¹pi³o na polu 13-24
             if (range13to24Field.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
+                if (!betTypes.empty())
+                    betTypes.pop_back();
+                else
+                    std::cout << "betTypes is empty";
                 std::cout << "Odznaczono zakres liczb 13-24\n";
                 for (int i = 12; i < 24; ++i)
                 {
@@ -637,6 +761,10 @@ void game::rouletteFunc()
             // Sprawdzenie, czy klikniêcie nast¹pi³o na polu 25-36
             if (range25to36Field.stats.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
+                if (!betTypes.empty())
+                    betTypes.pop_back();
+                else
+                    std::cout << "betTypes is empty";
                 std::cout << "Odznaczono zakres liczb 25-36\n";
                 for (int i = 24; i < 36; ++i)
                 {
@@ -693,5 +821,84 @@ void game::rouletteFunc()
 
 void game::bet()
 {
+    int winAmount = 0;
+    this->initRandom();
+    winAmount = p1.bet;
+    p1.bet = 0;
+
+    if (betTypes[0].name == "Red" && std::find(czerwone.begin(), czerwone.end(), randomNum) != czerwone.end())
+    {
+        std::cout << "Wybrales czerwone";
+        winAmount = winAmount * 2;
+        std::cout << winAmount << "\n";
+        p1.money += winAmount;
+        betNumbers.clear();
+        betTypes.clear();
+    }
+    else if (betTypes[0].name == "Black" && std::find(czarne.begin(), czarne.end(), randomNum) != czarne.end())
+    {
+        std::cout << "Wybrales czarne";
+        winAmount = winAmount * 2;
+        std::cout << winAmount << "\n";
+        p1.money += winAmount;
+        betNumbers.clear();
+        betTypes.clear();
+    }
+    else if (betTypes[0].name == "Number")
+    {
+        std::cout << "Wybrales liczby\n";
+        winAmount /= betNumbers.size();
+
+        bool isWinningNumber = false;
+        for (int number : betNumbers)
+        {
+            if (number == randomNum)
+            {
+                isWinningNumber = true;
+                break;
+            }
+        }
+
+        if (isWinningNumber)
+        {
+            winAmount = winAmount * 36;
+            std::cout << "Wygrana: " << winAmount << "\n";
+            p1.money += winAmount;
+        }
+        else
+        {
+            std::cout << "Przegrana\n";
+        }
+
+        betNumbers.clear();
+        betTypes.clear();
+    }
+    for (int i = 0; i < TableSize; ++i)
+    {
+        tableFields[i].shape.setOutlineColor(sf::Color::Black);
+    }
+}
+
+void game::wheelSpin()
+{
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && p1.bet > 0)
+    {
+        if(this->mouseHeld3 == false)
+        {
+            if (tekst4._text.getGlobalBounds().contains(mousePos.x, mousePos.y) && betNumbers.size() > 0)
+            {
+                std::sort(betNumbers.begin(), betNumbers.end());
+                betNumbers.erase(std::unique(betNumbers.begin(), betNumbers.end()), betNumbers.end());
+                this->mouseHeld3 = true;
+                std::cout << "Wcisnieto przycisk SPIN\n";
+                bet();
+            }
+        }
+    }
+    else
+    {
+        this->mouseHeld3 = false;
+    }
     
+    //bet; 
 }
