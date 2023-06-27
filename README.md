@@ -1,6 +1,17 @@
 # :game_die: Roulette Game 
 Classic roulette game based on SFML engine 
 
+Update 1.0 / 27.06
++ added a full functionally spin with specified bet amount on a different type of bet 
++ added menu to start the game and back into menu whenever you want 
++ few addons like text popup how much did you added into bet or if you win or lose 
++ reworked multi-betting cuz something wasn't working well
+In next update: 
++ wheel animation 
++ add settings to the game 
++ add ranking for highest win with Regex
++ add filesystem for nicknames
+
 Update 0.9 / 25.06
 + added a spin button and make an intro to put a bet func
 
