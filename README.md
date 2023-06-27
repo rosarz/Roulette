@@ -6,6 +6,7 @@ Update 1.0 / 27.06
 + added menu to start the game and back into menu whenever you want 
 + few addons like text popup how much did you added into bet or if you win or lose 
 + reworked multi-betting cuz something wasn't working well
+
 In next update: 
 + wheel animation 
 + add settings to the game 
