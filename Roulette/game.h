@@ -6,6 +6,8 @@
 #include <random>
 #include <chrono>
 #include <thread>
+#include <filesystem>
+
 
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
@@ -16,6 +18,7 @@
 #include "UImodel.h"
 #include "uiText.h"
 #include "player.h"
+#include "animation.h"
 
 
 //	TODO
@@ -38,8 +41,10 @@ protected:
 	bool mouseHeld = false;
 	bool mouseHeld2 = false;
 	bool mouseHeld3 = false;
+	bool mouseHeld4 = false;
 	bool buttonHeld = false;
 	bool buttonHeld2 = false;
+	bool buttonHeld3 = false;
 	std::vector<int> czerwone = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
 	std::vector<int> czarne = { 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 };
 	std::vector<int> range1to12 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
@@ -60,15 +65,20 @@ protected:
 	std::vector<BetType> betTypes;
 
 	//Menu
-	static const int MAX_OPTIONS = 3;
+	static const int MAX_OPTIONS = 10;
 	sf::Text menuTexts[MAX_OPTIONS];
 	int selectedItemIndex;
 
 	void initMenuText();
 	void menuSwitch();
 	bool io = false; 
-	
+	bool settings = true; 
+	void settingsInfo(); 
 
+	//Nickname & save
+	std::string nickname; 
+	sf::Event textEvent;
+	
 	//Mouse positions
 	sf::Vector2i mousePos;
 	sf::Vector2f mousePosView;
@@ -90,8 +100,9 @@ protected:
 	sf::Texture coin200Tex;
 	sf::Texture coin500Tex;
 
-	sf::Texture wheelTex;
+	//sf::Texture wheelTex;
 	sf::Sprite wheelSprite;
+	 
 
 	sf::Sprite coin10Sprite;
 	sf::Sprite coin20Sprite;
@@ -127,7 +138,16 @@ protected:
 	int a = 10;
 
 	//Wheel animation
+	sf::Texture wheelTex;
+	sf::Texture wheelTex2;
+	sf::RectangleShape wheel;
+	sf::RectangleShape wheel2;
 	sf::IntRect currentFrame;
+	float deltaTime = 0.0f;
+	sf::Clock clock;
+	animation Animation;
+	bool animWheel = false;
+	void rotateWheel(); 
 
 	//text
 	uiText tekst1;
@@ -138,6 +158,18 @@ protected:
 	std::string tekst5text;
 	uiText tekst6;
 	uiText tekst7;
+	uiText tekst8;
+	uiText tekst9;
+	uiText tekst10;
+	uiText tekst11;
+	uiText tekst12;
+	uiText tekst13;
+	uiText tekst14;
+	uiText tekst15;
+	uiText tekst16;
+	std::string winText; 
+	std::string rankText;
+
 	 
 	//Private functions 
 	void initVar();
@@ -189,6 +221,10 @@ public:
 
 	void bet(); 
 	void wheelSpin(); 
+
+	int winAmount = 0;
+	int maxwin; 
+	void maxWin();
 
 	void colorChange();
 };
