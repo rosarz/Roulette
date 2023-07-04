@@ -89,35 +89,86 @@ void game::initWheelTex()
     }
     else
         std::cout << "Wheel texture loaded from game.cpp\n";
- 
+
     wheel = sf::RectangleShape(sf::Vector2f(220, 205));
-    wheel2 = sf::RectangleShape(sf::Vector2f(220, 205));
-    wheel.setPosition(140.0f, 200.0f);
-    wheel2.setPosition(150.0f, 200.0f);
+    wheel.setPosition(80.0f, 160.0f);
     wheel.setTexture(&wheelTex);
+    wheel.setScale(1.7f, 1.5f);
+
+    wheel2 = sf::RectangleShape(sf::Vector2f(220, 205));
+    wheel2.setPosition(170.0f, 200.0f);
     wheel2.setTexture(&wheelTex2);
-    wheel.setScale(1.65f, 1.65f);
-    wheel2.setScale(1.5f, 1.5f);
+    wheel2.setScale(1.35f, 1.7f);
+
+    Animation = animation(&wheelTex, sf::Vector2u(11, 1), time);
+
+}
+
+void game::initWheelSpin()
+{
+    
 }
 
 void game::rotateWheel()
 {
-    Animation = animation(&wheelTex, sf::Vector2u(5, 3), 0.3f);
+    // Inicjalizacja generatora liczb pseudolosowych
+    int random = 0;
+    int randomStop;
+    
+    sf::Clock clock;
+    rd;
+    gen = std::mt19937(rd());
+    dist = std::uniform_int_distribution<>(600, 1000);
+    randomStop = dist(gen); 
+ 
+    wheelTex.setSmooth(true);
+    
 
-    while (animWheel == true) {
+    sf::IntRect newUvRect;
+    newUvRect.left = 0; 
+    newUvRect.top = 0;
+
+    while (playPause == 1) {
+        
         deltaTime = clock.restart().asSeconds();
-        Animation.update(0, deltaTime);
+        //std::cout << "Wykonanie animacji zakrecenia ruletki\n";
+        Animation.update(row, deltaTime);
         wheel.setTextureRect(Animation.uvRect);
-        //this->window->clear();
-        this->window->draw(wheel);
+        //std::cout << "Left:" << wheel.getTextureRect().left << "Top:" << wheel.getTextureRect().top << std::endl;
+        this->window->draw(this->wheel);
         this->window->display();
-        animWheel = false;
+        Animation.update(0, deltaTime);
+        
+        if (random <= randomStop - 400)
+            Animation.switchTime = 0.05f;
+
+        if (random > randomStop - 401){
+            //std::cout << "KOLO ZWALNIA";
+            Animation.switchTime += 0.001;
+        }
+
+        random++;
+        //std::cout << random;
+        if (random > randomStop) {
+            playPause = 0;
+            newUvRect.left = wheel.getTextureRect().left; 
+            newUvRect.top = wheel.getTextureRect().top; 
+        }
     }
+    if (playPause == 0)
+    {
+        
+        wheel.setTextureRect(Animation.uvRect);
+        this->window->draw(this->wheel);
+    }
+    
 }
 
 void game::renderWheel()
 {
-    this->window->draw(wheel2);
+    Animation.update(row, deltaTime);
+    wheel.setTextureRect(Animation.uvRect);
+    this->window->draw(this->wheel);
 }
 
 void game::initFont()
@@ -128,11 +179,6 @@ void game::initFont()
     }
     else
         std::cout << "Font loaded from game.cpp\n";
-}
-
-void game::initAnimation()
-{
-
 }
 
 void game::initTableField()
@@ -183,14 +229,14 @@ tekst2(24, sf::Color::Color(45, 147, 108), "ss2.str()", 300.f, 610.f),
 tekst3(24, sf::Color::Color(45, 147, 108), "Undo\nbet", 520.f, 600.f),
 tekst4(30, sf::Color::Color(45, 147, 108), "SPIN", 1020.f, 440.f),
 tekst5(30, sf::Color::Color(45, 147, 108), "ss3.str()", 350.f, 110.f),
-tekst6(30, sf::Color::Color(45, 147, 108), "EXIT", 1140.f, 20.f),
+tekst6(30, sf::Color::Color(45, 147, 108), "RANKING", 1040.f, 20.f),
 tekst7(90, sf::Color::Color(45, 147, 108), "ROULETTE", 320.f, 210.f),
 tekst8(30, sf::Color::Color(45, 147, 108), "Resolution: 720x1280\n    Max FPS: 144\n\n  Build with SFML", 370.f, 90.f),
 tekst9(30, sf::Color::Color(45, 147, 108), "Made by", 570.f, 580.f),
 tekst10(30, sf::Color::Color(45, 147, 108), "Filip Soltysik", 460.f, 620.f),
 tekst11(30, sf::Color::Color(45, 147, 108), "Input your nickname\n", 500.f, 290.f),
 tekst12(30, sf::Color::Color(45, 147, 108), "SAVE", 585.f, 460.f),
-tekst13(30, sf::Color::Color(45, 147, 108), "ss4.str()", 400.f, 70.f),
+tekst13(30, sf::Color::Color(45, 147, 108), "ss4.str()", 70.0f, 500.f),
 tekst14(30, sf::Color::Color(45, 147, 108), "LOAD", 400.f, 460.f),
 tekst15(30, sf::Color::Color(45, 147, 108), "DELETE", 770.f, 460.f),
 tekst16(30, sf::Color::Color(45, 147, 108), "ss5.str()", 20.f, 20.f)
@@ -204,6 +250,7 @@ tekst16(30, sf::Color::Color(45, 147, 108), "ss5.str()", 20.f, 20.f)
     this->initTextures();
     this->initWheelTex();
     this->initTableField();
+    this->initWheelSpin();
 }
 
 //Deconstructor
@@ -241,6 +288,15 @@ void game::pollEvents()
                 std::cout << "ASCII character typed: " << character << std::endl;
                 std::cout << p1.nickname; 
             }
+        //case sf::Event::MouseButtonPressed:
+        //    if (eve.type == sf::Event::MouseButtonPressed)
+        //    {
+        //        if (eve.mouseButton.button == sf::Mouse::Left)
+        //        {
+        //            std::cout << "Wcisnieto lewy przycisk myszy" << std::endl;
+        //            rotateWheel();
+        //        }
+        //    }
             break;
         }
     }
@@ -273,6 +329,7 @@ void game::updateText()
     tekst5._text.setString(ss3.str());
     tekst13._text.setString(ss4.str());
     tekst16._text.setString(ss5.str());
+    
 
 }
 
@@ -302,9 +359,11 @@ void game::renderText(sf::RenderTarget& target) // w tej formie dzia³a uiText te
     target.draw(tekst3._text);
     target.draw(tekst4._text);
     target.draw(tekst5._text);
-    target.draw(tekst6._text);
+    //target.draw(tekst6._text);
     target.draw(tekst13._text);
     target.draw(tekst16._text);
+    p1.loadMaxWin("maxWin.bin", maxwin);
+    rankText = "Biggest win is: " + std::to_string(p1.maxWin);
 }
 
 void game::initMenuText()
@@ -373,6 +432,7 @@ void game::menuParts()
             std::cout << "0\n";
             //this->window->clear();
             
+            
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) && selectedItemIndex == 1)
         {
@@ -405,9 +465,15 @@ void game::render()
     this->colorChange();
     this->updateText();
     this->renderCoins();
-    this->renderWheel();
+    //this->renderWheel();
     this->rouletteFunc();
     this->wheelSpin();
+    this->rotateWheel();
+    
+    //Animation = animation(&wheelTex, sf::Vector2u(11, 1), time);
+    //wheel.setTextureRect(Animation.uvRect);
+    //this->window->draw(this->wheel);
+    
 
     this->window->display();
     }
@@ -442,7 +508,7 @@ void game::settingsInfo()
     ss << " Nickname:\n   " << p1.nickname;
     tekst11._text.setString(ss.str());
     
-
+    //this->window->draw(tekst6._text);
     this->window->draw(tekst8._text);
     this->window->draw(tekst9._text);
     this->window->draw(tekst10._text);
@@ -475,24 +541,31 @@ void game::settingsInfo()
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        if (this->mouseHeld4 == false) //fix the multi-clicking in typing
+        if (this->mouseHeld4 == false)
         {
             mouseHeld4 = true;
             if (tekst12._text.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
-                p1.saveData("nickname.bin");
+                //save(p1.nickname);
+                p1.saveData();
                 std::cout << "Zapisano gre\n";
             }
             if (tekst14._text.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
-                p1.loadData("nickname.bin");
-                p1.loadMaxWin("maxWin.bin");
-                std::cout << p1.last_win; 
+                p1.loadData();
+                std::cout << p1.nickname << " " << p1.maxWin << std::endl;
+                //p1.loadMaxWin("maxWin.bin", maxwin);
+                //rankText = "Biggest win is: " + std::to_string(maxwin);
+                //std::cout << p1.last_win; 
                 
             }
             if (tekst15._text.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
-                p1.deleteSaveFile("nickname.bin");
+                p1.deleteSaveFile();
+            }
+            if (tekst6._text.getGlobalBounds().contains(mousePos.x, mousePos.y))
+            {
+                
             }
         }
     }
@@ -948,10 +1021,11 @@ void game::bet()
         p1.money += winAmount;
         p1.last_win += winAmount; 
         maxWin();
-        winText = "Win number is: " + std::to_string(randomNum);
-        tekst5text = "   You won: " + std::to_string(winAmount);
+        winText = "Win number: " + std::to_string(randomNum);
+        tekst5text = "     You won: " + std::to_string(winAmount);
         betNumbers.clear();
         betTypes.clear();
+        winAmount = 0; 
     }
     else if (betTypes[0].name == "Black" && std::find(czarne.begin(), czarne.end(), randomNum) != czarne.end())
     {
@@ -961,10 +1035,11 @@ void game::bet()
         p1.money += winAmount;
         p1.last_win += winAmount;
         maxWin();
-        winText = "Win number is: " + std::to_string(randomNum);
-        tekst5text = "   You won: " + std::to_string(winAmount);
+        winText = "Win number: " + std::to_string(randomNum);
+        tekst5text = "     You won: " + std::to_string(winAmount);
         betNumbers.clear();
         betTypes.clear();
+        winAmount = 0;
     }
     else if (betTypes[0].name == "range1to12" && std::find(range1to12.begin(), range1to12.end(), randomNum) != range1to12.end())
     {
@@ -974,10 +1049,11 @@ void game::bet()
         p1.money += winAmount;
         p1.last_win += winAmount;
         maxWin();
-        winText = "Win number is: " + std::to_string(randomNum);
-        tekst5text = "   You won: " + std::to_string(winAmount);
+        winText = "Win number: " + std::to_string(randomNum);
+        tekst5text = "     You won: " + std::to_string(winAmount);
         betNumbers.clear();
         betTypes.clear();
+        winAmount = 0;
     }
     else if (betTypes[0].name == "range13to24" && std::find(range13to24.begin(), range13to24.end(), randomNum) != range13to24.end())
     {
@@ -987,10 +1063,11 @@ void game::bet()
         p1.money += winAmount;
         p1.last_win += winAmount;
         maxWin();
-        winText = "Win number is: " + std::to_string(randomNum);
-        tekst5text = "   You won: " + std::to_string(winAmount);
+        winText = "Win number: " + std::to_string(randomNum);
+        tekst5text = "     You won: " + std::to_string(winAmount);
         betNumbers.clear();
         betTypes.clear();
+        winAmount = 0;
     }
     else if (betTypes[0].name == "range25to36" && std::find(range25to36.begin(), range25to36.end(), randomNum) != range25to36.end())
     {
@@ -1000,10 +1077,11 @@ void game::bet()
         p1.money += winAmount;
         p1.last_win += winAmount;
         maxWin();
-        winText = "Win number is: " + std::to_string(randomNum);
-        tekst5text = "   You won: " + std::to_string(winAmount);
+        winText = "Win number: " + std::to_string(randomNum);
+        tekst5text = "     You won: " + std::to_string(winAmount);
         betNumbers.clear();
         betTypes.clear();
+        winAmount = 0;
     }
     else if (betTypes[0].name == "Number")
     {
@@ -1025,21 +1103,22 @@ void game::bet()
             p1.last_win += winAmount;
             maxWin(); 
             std::cout << "Wygrana: " << winAmount << "\n";
-            tekst5text = "  You won: " + std::to_string(winAmount);
-            winText = "Win number is: " + std::to_string(randomNum); 
+            tekst5text = "    You won: " + std::to_string(winAmount);
+            winText = "Win number: " + std::to_string(randomNum); 
             p1.money += winAmount;
-            winAmount = 0; 
-            p1.last_win = 0; 
+            winAmount = 0;
         }
         else
         {
             tekst5text = "    You lost :(";
+            winText = "Win number: " + std::to_string(randomNum);
             std::cout << "Przegrana\n";
         }
     }
     else
     {
         tekst5text = "    You lost :(";
+        winText = "Win number: " + std::to_string(randomNum);
         std::cout << "Przegrana\n";
     }
 
@@ -1059,14 +1138,16 @@ void game::wheelSpin()
         {
             if (tekst4._text.getGlobalBounds().contains(mousePos.x, mousePos.y) && betNumbers.size() > 0)
             {
-                animWheel = true;
-                rotateWheel();
-                animWheel = false; 
+                playPause = 1; 
+                this->rotateWheel();
                 std::sort(betNumbers.begin(), betNumbers.end());
                 betNumbers.erase(std::unique(betNumbers.begin(), betNumbers.end()), betNumbers.end());
                 this->mouseHeld3 = true;
                 std::cout << "Wcisnieto przycisk SPIN\n";
                 bet();
+                //Animation.update(row, deltaTime);
+                //wheel.setTextureRect(Animation.uvRect);
+                //this->window->draw(this->wheel);
             }
         }
     }
@@ -1074,17 +1155,14 @@ void game::wheelSpin()
     {
         this->mouseHeld3 = false;
     }
-    
-    //bet; 
 }
 
 void game::maxWin()
 {
-    p1.loadMaxWin("maxWin.bin");
-    if (p1.last_win > winAmount){
-        std::cout << "Nowy rekord: " + std::to_string(p1.last_win); 
-        p1.saveMaxWin("maxWin.bin", p1.last_win);
-        rankText = "Biggest win is: " + std::to_string(p1.last_win);
+    if (winAmount > p1.maxWin){
+        p1.maxWin = 0; 
+        p1.maxWin += winAmount;
+        std::cout << "Nowy rekord: " + std::to_string(p1.maxWin);
+        p1.saveMaxWin();
     }
 }
-

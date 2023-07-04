@@ -143,11 +143,15 @@ protected:
 	sf::RectangleShape wheel;
 	sf::RectangleShape wheel2;
 	sf::IntRect currentFrame;
-	float deltaTime = 0.0f;
-	sf::Clock clock;
 	animation Animation;
+	float time = 0.4f;
+	bool playPause = 0;
 	bool animWheel = false;
 	void rotateWheel(); 
+	int row = 0;
+	float deltaTime = 0.0f;
+
+
 
 	//text
 	uiText tekst1;
@@ -178,10 +182,9 @@ protected:
 	void initTextures();
 	void initBar();
 	void initWheelTex();
-	void initAnimation();
 	void initTableField();
 	void initRandom();
-	void initGrid();
+	void initWheelSpin();
 
 
 public:
@@ -227,4 +230,6 @@ public:
 	void maxWin();
 
 	void colorChange();
+
+	
 };

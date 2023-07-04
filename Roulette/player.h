@@ -11,7 +11,8 @@ class player
 {
 private:
 
-
+	std::string dataFolder = "player_data";
+	std::string maxFolder = "maxWins";
 public:
 	std::string nickname;
 	long money; 
@@ -19,14 +20,15 @@ public:
 	int last_bet;
 	int last_win;
 	int number; 
+	int maxWin; 
 
 	std::vector<int> betNum;
 
-	void saveData(const std::string& filename);
-	void loadData(const std::string& filename);
-	void deleteSaveFile(const std::string& filename);
-	void saveMaxWin(const std::string& filename, int maxWin);
-	long loadMaxWin(const std::string& filename);
+	void saveData();
+	void loadData();
+	void deleteSaveFile();
+	void saveMaxWin();
+	long loadMaxWin(const std::string& filename, int maxWin);
 
 	player();
 };

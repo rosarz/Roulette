@@ -11,12 +11,27 @@ public:
 	void update(int row, float deltaTime); 
 
 	sf::IntRect uvRect; 
+	float switchTime;
+	float totalTime;
 
-private:
 	sf::Vector2u imageCount; 
 	sf::Vector2u currentImage; 
 
-	float totalTime; 
-	float switchTime; 
+private:
+	
 };
 
+/*void player::deleteSaveFile(const std::string filename)
+{
+	std::filesystem::path filePath(filename);
+
+	if (std::filesystem::exists(filePath))
+	{
+		std::filesystem::remove(filePath);
+		std::cout << "Zapis gry usuniêty: " << filename << std::endl;
+	}
+	else
+	{
+		std::cout << "Nie mo¿na odnaleŸæ zapisu gry: " << filename << std::endl;
+	}
+}*/

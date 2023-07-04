@@ -5,46 +5,86 @@ player::player()
 	money = 500;
 	bet = 0; 
 	last_bet = 0; 
+	maxWin = 0; 
 }
 
 
-void player::saveData(const std::string& filename)
+void player::saveData()
 {
-	std::ofstream file(filename, std::ios::binary);
+	// SprawdŸ, czy folder player_data istnieje
+	if (!std::filesystem::exists(dataFolder))
+	{
+		// Jeœli nie, utwórz nowy folder
+		std::filesystem::create_directory(dataFolder);
+	}
+
+	nickname.erase(0, 1);
+
+	std::string filename = dataFolder + "/" + nickname + ".txt";
+	std::ofstream file(filename);
 
 	if (file.is_open())
 	{
-		size_t nicknameSize = nickname.size();
-		file.write(reinterpret_cast<const char*>(&nicknameSize), sizeof(nicknameSize));
-		file.write(nickname.data(), nicknameSize);
-		file.write(reinterpret_cast<const char*>(&money), sizeof(money));
+		file << "Nickname: " << nickname << std::endl;
+		file << "Money: " << money << std::endl;
+		file << "Bet: " << bet << std::endl;
+		file << "Max Win: " << maxWin << std::endl;
 
 		file.close();
+		std::cout << "Dane gracza zapisane do pliku: " << filename << std::endl;
+	}
+	else
+	{
+		std::cerr << "Blad podczas zapisywania danych gracza do pliku." << std::endl;
 	}
 }
 
-void player::loadData(const std::string& filename)
+void player::loadData()
 {
-	std::ifstream file(filename, std::ios::binary);
+	nickname.erase(0, 1);
+
+	std::string filename = dataFolder + "/" + nickname + ".txt";
+	std::ifstream file(filename);
 
 	if (file.is_open())
-	{
-		size_t nicknameSize;
-		file.read(reinterpret_cast<char*>(&nicknameSize), sizeof(nicknameSize));
-		nickname.resize(nicknameSize);
-		file.read(nickname.data(), nicknameSize);
-		file.read(reinterpret_cast<char*>(&money), sizeof(money));
+	{ 
+		//(\S+) znaki
+		//:\s* dwukropek
+
+		std::regex pattern(R"((\S+):\s*(\S+))");
+		std::smatch matches;
+
+		std::string line;
+		while (std::getline(file, line))
+		{
+			if (std::regex_search(line, matches, pattern))
+			{
+				std::string key = matches[1];
+				std::string value = matches[2];
+
+				if (key == "Nickname")
+					nickname = value;
+				else if (key == "Money")
+					money = std::stol(value);
+				else if (key == "Bet")
+					bet = std::stol(value);
+				else if (key == "Max Win")
+					maxWin = std::stoi(value);
+			}
+		}
+
 		std::cout << "Wczytano gre\n";
 		file.close();
 	}
 	else
 	{
-		std::cout << "Nie udalo sie wczytaæ gry\n";
+		std::cout << "Nie udalo sie wczytac gry\n";
 	}
 }
 
-void player::deleteSaveFile(const std::string& filename)
+void player::deleteSaveFile()
 {
+	std::string filename = dataFolder + "/" + nickname + ".txt";
 	std::filesystem::path filePath(filename);
 
 	if (std::filesystem::exists(filePath))
@@ -58,33 +98,44 @@ void player::deleteSaveFile(const std::string& filename)
 	}
 }
 
-void player::saveMaxWin(const std::string& filename, int maxWin)
+void player::saveMaxWin()
 {
-	std::ifstream inputFile(filename);
-	std::string fileContent((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
-
-	std::regex regexMaxWin(R"(^Max Win: (\d+)$)");
-	std::smatch match;
-
-	if (std::regex_search(fileContent, match, regexMaxWin))
+	// SprawdŸ, czy folder player_data istnieje
+	if (!std::filesystem::exists(maxFolder))
 	{
-		// Aktualizuj istniej¹cy zapis najwiêkszej wygranej
-		std::string updatedContent = std::regex_replace(fileContent, regexMaxWin, "Max Win: " + std::to_string(maxWin));
+		// Jeœli nie, utwórz nowy folder
+		std::filesystem::create_directory(maxFolder);
+	}
 
-		std::ofstream outputFile(filename);
-		outputFile << updatedContent;
-		std::cout << "Najwiêksza wygrana zosta³a zaktualizowana: " << maxWin << std::endl;
+	std::time_t t = std::time(nullptr);
+	std::tm now;
+
+	// U¿yj localtime_s zamiast localtime
+	localtime_s(&now, &t);
+
+	int year = now.tm_year + 1900;
+	int month = now.tm_mon + 1;
+	int day = now.tm_mday;
+
+	std::string filename = maxFolder + "/maxWins.txt";
+	std::ofstream file(filename);
+
+	if (file.is_open())
+	{
+		file << "Max Win: " << maxWin;
+		file << "  Date: " << year << "/" << month << "/" << day;
+		file << "  Nickname: " << nickname; 
+
+		file.close();
+		std::cout << "Najwyzszy wynik zapisany do pliku: " << filename << std::endl;
 	}
 	else
 	{
-		// Dodaj nowy wpis najwiêkszej wygranej
-		std::ofstream outputFile(filename, std::ios::app);
-		outputFile << "\nMax Win: " << maxWin;
-		std::cout << "Dodano nowy wpis najwiêkszej wygranej: " << maxWin << std::endl;
+		std::cerr << "Blad podczas zapisywania najwyzszej wygranej" << std::endl;
 	}
 }
 
-long player::loadMaxWin(const std::string& filename)
+long player::loadMaxWin(const std::string& filename, int maxWin)
 {
 	std::ifstream inputFile(filename);
 	std::string fileContent((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());

@@ -1,0 +1,4 @@
+Nickname: Filip
+Money: 550
+Bet: 50
+Max Win: 200
