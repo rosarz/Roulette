@@ -1,6 +1,10 @@
 # :game_die: Roulette Game 
 Classic roulette game based on SFML engine 
 
+Update 1.2 / 04.07
++ reworked the animation to work perfectly
++ reworked the saveing system to be easy to read from normal system UI
+
 Update 1.1 / 28.06
 + added settings and option to come back every time 
 + added animation (timing isn't working well) 
