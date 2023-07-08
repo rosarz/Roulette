@@ -51,6 +51,9 @@ protected:
 	std::vector<int> range13to24 = { 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
 	std::vector<int> range25to36 = { 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 };
 
+	sf::Color winColor = sf::Color::Color(68, 222, 64);
+	sf::Color loseColor = sf::Color::Color(220, 20, 60);
+
 	std::vector<int> betNumbers; 
 
 	//Struktura BetType aby wiedziec jaki typ betu mamy
@@ -171,6 +174,9 @@ protected:
 	uiText tekst14;
 	uiText tekst15;
 	uiText tekst16;
+	uiText tekst17;
+	uiText tekst18;
+	uiText tekst19;
 	std::string winText; 
 	std::string rankText;
 

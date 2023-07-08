@@ -1,0 +1,4 @@
+Nickname: Adam
+Money: 500
+Bet: 0
+Max Win: 0

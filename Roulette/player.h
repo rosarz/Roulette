@@ -21,6 +21,7 @@ public:
 	int last_win;
 	int number; 
 	int maxWin; 
+	int i = 0;
 
 	std::vector<int> betNum;
 

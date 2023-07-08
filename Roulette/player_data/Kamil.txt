@@ -1,0 +1,4 @@
+Nickname: Kamil
+Money: 1688
+Bet: 0
+Max Win: 1188

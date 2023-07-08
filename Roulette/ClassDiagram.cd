@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="animation">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJAAAgAAAAAAEAAIAAAQEAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="game">
+    <Position X="4.75" Y="0.5" Width="3.25" />
+    <Members>
+      <Field Name="a" Hidden="true" />
+      <Field Name="buttonHeld2" Hidden="true" />
+      <Field Name="buttonHeld3" Hidden="true" />
+      <Field Name="coin100Sprite" Hidden="true" />
+      <Field Name="coin100Tex" Hidden="true" />
+      <Field Name="coin10Sprite" Hidden="true" />
+      <Field Name="coin200Sprite" Hidden="true" />
+      <Field Name="coin200Tex" Hidden="true" />
+      <Field Name="coin20Sprite" Hidden="true" />
+      <Field Name="coin20Tex" Hidden="true" />
+      <Field Name="coin500Sprite" Hidden="true" />
+      <Field Name="coin500Tex" Hidden="true" />
+      <Field Name="coin50Sprite" Hidden="true" />
+      <Field Name="coin50Tex" Hidden="true" />
+      <Field Name="dist" Hidden="true" />
+      <Field Name="eve2" Hidden="true" />
+      <Field Name="gen" Hidden="true" />
+      <Method Name="initBackground" Hidden="true" />
+      <Method Name="initBar" Hidden="true" />
+      <Method Name="initFont" Hidden="true" />
+      <Method Name="initMenuText" Hidden="true" />
+      <Method Name="initRandom" Hidden="true" />
+      <Method Name="initTableField" Hidden="true" />
+      <Method Name="initTextures" Hidden="true" />
+      <Method Name="initVar" Hidden="true" />
+      <Method Name="initWheelSpin" Hidden="true" />
+      <Method Name="initWheelTex" Hidden="true" />
+      <Field Name="io" Hidden="true" />
+      <Field Name="mouseHeld2" Hidden="true" />
+      <Field Name="mouseHeld3" Hidden="true" />
+      <Field Name="mouseHeld4" Hidden="true" />
+      <Field Name="range13to24Field" Hidden="true" />
+      <Field Name="range1to12Field" Hidden="true" />
+      <Field Name="range25to36Field" Hidden="true" />
+      <Field Name="rd" Hidden="true" />
+      <Field Name="redField" Hidden="true" />
+      <Method Name="render2" Hidden="true" />
+      <Method Name="renderBackground" Hidden="true" />
+      <Method Name="renderBar" Hidden="true" />
+      <Method Name="renderCoins" Hidden="true" />
+      <Method Name="renderGrid" Hidden="true" />
+      <Method Name="renderMenu" Hidden="true" />
+      <Method Name="renderTableField" Hidden="true" />
+      <Method Name="renderText" Hidden="true" />
+      <Field Name="row" Hidden="true" />
+      <Field Name="selectedItemIndex" Hidden="true" />
+      <Field Name="tekst10" Hidden="true" />
+      <Field Name="tekst11" Hidden="true" />
+      <Field Name="tekst12" Hidden="true" />
+      <Field Name="tekst13" Hidden="true" />
+      <Field Name="tekst14" Hidden="true" />
+      <Field Name="tekst15" Hidden="true" />
+      <Field Name="tekst16" Hidden="true" />
+      <Field Name="tekst17" Hidden="true" />
+      <Field Name="tekst18" Hidden="true" />
+      <Field Name="tekst19" Hidden="true" />
+      <Field Name="tekst2" Hidden="true" />
+      <Field Name="tekst3" Hidden="true" />
+      <Field Name="tekst4" Hidden="true" />
+      <Field Name="tekst5" Hidden="true" />
+      <Field Name="tekst5text" Hidden="true" />
+      <Field Name="tekst6" Hidden="true" />
+      <Field Name="tekst7" Hidden="true" />
+      <Field Name="tekst8" Hidden="true" />
+      <Field Name="tekst9" Hidden="true" />
+      <Field Name="wheel2" Hidden="true" />
+      <Field Name="wheelSprite" Hidden="true" />
+      <Field Name="wheelTex2" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="game::BetType">
+        <TypeIdentifier>
+          <NewMemberFileName>game.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="game::TableField">
+        <TypeIdentifier>
+          <NewMemberFileName>game.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>5h+rxQBiwBOsMQBOlgEwZgOGmArhk6o8wMIIepFUpRo=</HashCode>
+      <FileName>game.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Animation" />
+      <Field Name="p1" />
+      <Field Name="blackField" />
+      <Field Name="botBar" />
+      <Field Name="oddField" />
+      <Field Name="tekst1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="player">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABEBAAIAAIQAQAIBAAAgAQACABAAABAAAAAAAAEQA=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UImodel">
+    <Position X="10" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UImodel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="uiText">
+    <Position X="1.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAAAAAAAAAAAAAAAAAAAAAAAAAAAIgAAAAAAAAAA=</HashCode>
+      <FileName>uiText.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

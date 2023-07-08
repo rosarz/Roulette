@@ -5,7 +5,7 @@ player::player()
 	money = 500;
 	bet = 0; 
 	last_bet = 0; 
-	maxWin = 0; 
+	maxWin; 
 }
 
 
@@ -18,7 +18,10 @@ void player::saveData()
 		std::filesystem::create_directory(dataFolder);
 	}
 
-	nickname.erase(0, 1);
+	if (nickname.find("/") != std::string::npos)
+	{
+		nickname.erase(0, 1);
+	}
 
 	std::string filename = dataFolder + "/" + nickname + ".txt";
 	std::ofstream file(filename);
@@ -28,7 +31,7 @@ void player::saveData()
 		file << "Nickname: " << nickname << std::endl;
 		file << "Money: " << money << std::endl;
 		file << "Bet: " << bet << std::endl;
-		file << "Max Win: " << maxWin << std::endl;
+		file << "MaxWin: " << maxWin << std::endl;
 
 		file.close();
 		std::cout << "Dane gracza zapisane do pliku: " << filename << std::endl;
@@ -41,7 +44,10 @@ void player::saveData()
 
 void player::loadData()
 {
-	nickname.erase(0, 1);
+	if (nickname.find("/") != std::string::npos)
+	{
+		nickname.erase(0, 1);
+	}
 
 	std::string filename = dataFolder + "/" + nickname + ".txt";
 	std::ifstream file(filename);
@@ -50,8 +56,9 @@ void player::loadData()
 	{ 
 		//(\S+) znaki
 		//:\s* dwukropek
+		//:\w+ cyfra 
 
-		std::regex pattern(R"((\S+):\s*(\S+))");
+		std::regex pattern(R"((\S+):\s*(\w+))");
 		std::smatch matches;
 
 		std::string line;
@@ -68,8 +75,10 @@ void player::loadData()
 					money = std::stol(value);
 				else if (key == "Bet")
 					bet = std::stol(value);
-				else if (key == "Max Win")
+				else if (key == "MaxWin") {
+					std::cout << "Wykonano zaladowanie maxWin\n";
 					maxWin = std::stoi(value);
+				}
 			}
 		}
 
@@ -116,14 +125,16 @@ void player::saveMaxWin()
 	int year = now.tm_year + 1900;
 	int month = now.tm_mon + 1;
 	int day = now.tm_mday;
+	int hour = now.tm_hour; 
+	int minute = now.tm_min; 
 
-	std::string filename = maxFolder + "/maxWins.txt";
+	std::string filename = maxFolder + "/maxWins_" + nickname + ".txt";
 	std::ofstream file(filename);
 
 	if (file.is_open())
 	{
 		file << "Max Win: " << maxWin;
-		file << "  Date: " << year << "/" << month << "/" << day;
+		file << "  Date: " << year << "/" << month << "/" << day << " Hour: " << hour << ":" << minute;
 		file << "  Nickname: " << nickname; 
 
 		file.close();

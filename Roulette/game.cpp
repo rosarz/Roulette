@@ -1,4 +1,5 @@
 #include "game.h"
+#pragma warning(suppress : 4996)
 
 void game::initVar()
 {
@@ -215,10 +216,10 @@ void game::initRandom()
     // Inicjalizacja generatora liczb pseudolosowych
     rd;
     gen = std::mt19937(rd());
-    dist = std::uniform_int_distribution<>(0, TableSize - 1);
+    dist = std::uniform_int_distribution<>(1, TableSize - 1);
     
-    //randomNum = dist(gen); 
-    randomNum = 3;
+    randomNum = dist(gen); 
+    //randomNum = 3;
     std::cout << randomNum; 
 }
 
@@ -227,7 +228,7 @@ void game::initRandom()
 game::game() : tekst1(24, sf::Color::Color(45, 147, 108), "ss.str()", 60.f, 610.f),
 tekst2(24, sf::Color::Color(45, 147, 108), "ss2.str()", 300.f, 610.f),
 tekst3(24, sf::Color::Color(45, 147, 108), "Undo\nbet", 520.f, 600.f),
-tekst4(30, sf::Color::Color(45, 147, 108), "SPIN", 1020.f, 440.f),
+tekst4(30, sf::Color::Color(45, 147, 108), "SPIN", 740.f, 500.f),
 tekst5(30, sf::Color::Color(45, 147, 108), "ss3.str()", 350.f, 110.f),
 tekst6(30, sf::Color::Color(45, 147, 108), "RANKING", 1040.f, 20.f),
 tekst7(90, sf::Color::Color(45, 147, 108), "ROULETTE", 320.f, 210.f),
@@ -239,7 +240,10 @@ tekst12(30, sf::Color::Color(45, 147, 108), "SAVE", 585.f, 460.f),
 tekst13(30, sf::Color::Color(45, 147, 108), "ss4.str()", 70.0f, 500.f),
 tekst14(30, sf::Color::Color(45, 147, 108), "LOAD", 400.f, 460.f),
 tekst15(30, sf::Color::Color(45, 147, 108), "DELETE", 770.f, 460.f),
-tekst16(30, sf::Color::Color(45, 147, 108), "ss5.str()", 20.f, 20.f)
+tekst16(30, sf::Color::Color(45, 147, 108), "ss5.str()", 20.f, 20.f),
+tekst17(20, sf::Color::Color(45, 147, 108), "1-12", 740.f, 435.f),
+tekst18(20, sf::Color::Color(45, 147, 108), "13-24", 840.f, 435.f),
+tekst19(20, sf::Color::Color(45, 147, 108), "25-36", 960.f, 435.f)
 {
     this->initMenuText(); 
     this->initVar();
@@ -282,11 +286,13 @@ void game::pollEvents()
             }
             break;
         case sf::Event::TextEntered:
-            if (this->eve.text.unicode < 128) {
-                char character = static_cast<char>(this->eve.text.unicode);
-                p1.nickname += character;
-                std::cout << "ASCII character typed: " << character << std::endl;
-                std::cout << p1.nickname; 
+            if (settings == 0) {
+                if (this->eve.text.unicode < 128) {
+                    char character = static_cast<char>(this->eve.text.unicode);
+                    p1.nickname += character;
+                    std::cout << "ASCII character typed: " << character << std::endl;
+                    std::cout << p1.nickname; 
+                }
             }
         //case sf::Event::MouseButtonPressed:
         //    if (eve.type == sf::Event::MouseButtonPressed)
@@ -362,7 +368,9 @@ void game::renderText(sf::RenderTarget& target) // w tej formie dzia³a uiText te
     //target.draw(tekst6._text);
     target.draw(tekst13._text);
     target.draw(tekst16._text);
-    p1.loadMaxWin("maxWin.bin", maxwin);
+    target.draw(tekst17._text);
+    target.draw(tekst18._text);
+    target.draw(tekst19._text);
     rankText = "Biggest win is: " + std::to_string(p1.maxWin);
 }
 
@@ -613,6 +621,7 @@ void game::colorChange()
             if (coin10Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 10) {
                 std::cout << "Zwiekszono bet o 10\n";
                 tekst5text = "You have increased your\n      bet by 10";
+                tekst5._text.setFillColor(sf::Color::Color(45, 147, 108));
                 p1.bet += 10;
                 p1.money -= 10;
                 std::cout << "Bet: " << p1.bet << "\nCash: " << p1.money << std::endl;
@@ -620,30 +629,35 @@ void game::colorChange()
             if (coin20Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 20) {
                 std::cout << "Zwiekszono bet o 20\n";
                 tekst5text = "You have increased your\n      bet by 20";
+                tekst5._text.setFillColor(sf::Color::Color(45, 147, 108));
                 p1.bet += 20;
                 p1.money -= 20;
             }
             if (coin50Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 50) {
                 std::cout << "Zwiekszono bet o 50\n";
                 tekst5text = "You have increased your\n      bet by 50";
+                tekst5._text.setFillColor(sf::Color::Color(45, 147, 108));
                 p1.bet += 50;
                 p1.money -= 50;
             }
             if (coin100Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 100) {
                 std::cout << "Zwiekszono bet o 100\n";
                 tekst5text = "You have increased your\n      bet by 100";
+                tekst5._text.setFillColor(sf::Color::Color(45, 147, 108));
                 p1.bet += 100;
                 p1.money -= 100;
             }
             if (coin200Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 200) {
                 std::cout << "Zwiekszono bet o 200\n";
                 tekst5text = "You have increased your\n      bet by 200";
+                tekst5._text.setFillColor(sf::Color::Color(45, 147, 108));
                 p1.bet += 200;
                 p1.money -= 200;
             }
             if (coin500Sprite.getGlobalBounds().contains(this->mousePosView) && p1.money >= 500) {
                 std::cout << "Zwiekszono bet o 500\n";
                 tekst5text = "You have increased your\n      bet by 500";
+                tekst5._text.setFillColor(sf::Color::Color(45, 147, 108));
                 p1.bet += 500;
                 p1.money -= 500;
             }
@@ -715,8 +729,8 @@ void game::rouletteFunc()
     sf::Vector2f redFieldPosition(600, 420);
     sf::Vector2f blackFieldPosition(670, 420);
     sf::Vector2f range1to12FieldPosition(740, 420);
-    sf::Vector2f range13to24FieldPosition(810, 420);
-    sf::Vector2f range25to36FieldPosition(880, 420);
+    sf::Vector2f range13to24FieldPosition(840, 420);
+    sf::Vector2f range25to36FieldPosition(960, 420);
 
     // Pobranie informacji o zdarzeniu
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -988,20 +1002,20 @@ void game::rouletteFunc()
     blackField.stats.setFillColor(sf::Color::Black);
     this->window->draw(blackField.stats);
 
-    range1to12Field = UImodel(range1to12FieldPosition.x, range1to12FieldPosition.y, 50.f, 50.f);
-    range1to12Field.stats.setFillColor(sf::Color::White);
+    range1to12Field = UImodel(range1to12FieldPosition.x, range1to12FieldPosition.y, 80.f, 50.f);
+    range1to12Field.stats.setFillColor(sf::Color::Transparent);
     range1to12Field.stats.setOutlineColor(sf::Color::Black);
     range1to12Field.stats.setOutlineThickness(1.0f);
     this->window->draw(range1to12Field.stats);
 
-    range13to24Field = UImodel(range13to24FieldPosition.x, range13to24FieldPosition.y, 50.f, 50.f);
-    range13to24Field.stats.setFillColor(sf::Color::White);
+    range13to24Field = UImodel(range13to24FieldPosition.x, range13to24FieldPosition.y, 100.f, 50.f);
+    range13to24Field.stats.setFillColor(sf::Color::Transparent);
     range13to24Field.stats.setOutlineColor(sf::Color::Black);
     range13to24Field.stats.setOutlineThickness(1.0f);
     this->window->draw(range13to24Field.stats);
 
-    range25to36Field = UImodel(range25to36FieldPosition.x, range25to36FieldPosition.y, 50.f, 50.f);
-    range25to36Field.stats.setFillColor(sf::Color::White);
+    range25to36Field = UImodel(range25to36FieldPosition.x, range25to36FieldPosition.y, 100.f, 50.f);
+    range25to36Field.stats.setFillColor(sf::Color::Transparent);
     range25to36Field.stats.setOutlineColor(sf::Color::Black);
     range25to36Field.stats.setOutlineThickness(1.0f);
     this->window->draw(range25to36Field.stats);
@@ -1023,6 +1037,8 @@ void game::bet()
         maxWin();
         winText = "Win number: " + std::to_string(randomNum);
         tekst5text = "     You won: " + std::to_string(winAmount);
+        tekst5._text.setFillColor(winColor);
+        tekst13._text.setFillColor(winColor);
         betNumbers.clear();
         betTypes.clear();
         winAmount = 0; 
@@ -1037,6 +1053,8 @@ void game::bet()
         maxWin();
         winText = "Win number: " + std::to_string(randomNum);
         tekst5text = "     You won: " + std::to_string(winAmount);
+        tekst5._text.setFillColor(winColor);
+        tekst13._text.setFillColor(winColor);
         betNumbers.clear();
         betTypes.clear();
         winAmount = 0;
@@ -1051,6 +1069,8 @@ void game::bet()
         maxWin();
         winText = "Win number: " + std::to_string(randomNum);
         tekst5text = "     You won: " + std::to_string(winAmount);
+        tekst5._text.setFillColor(winColor);
+        tekst13._text.setFillColor(winColor);
         betNumbers.clear();
         betTypes.clear();
         winAmount = 0;
@@ -1065,6 +1085,8 @@ void game::bet()
         maxWin();
         winText = "Win number: " + std::to_string(randomNum);
         tekst5text = "     You won: " + std::to_string(winAmount);
+        tekst5._text.setFillColor(winColor);
+        tekst13._text.setFillColor(winColor);
         betNumbers.clear();
         betTypes.clear();
         winAmount = 0;
@@ -1079,6 +1101,8 @@ void game::bet()
         maxWin();
         winText = "Win number: " + std::to_string(randomNum);
         tekst5text = "     You won: " + std::to_string(winAmount);
+        tekst5._text.setFillColor(winColor);
+        tekst13._text.setFillColor(winColor);
         betNumbers.clear();
         betTypes.clear();
         winAmount = 0;
@@ -1105,6 +1129,8 @@ void game::bet()
             std::cout << "Wygrana: " << winAmount << "\n";
             tekst5text = "    You won: " + std::to_string(winAmount);
             winText = "Win number: " + std::to_string(randomNum); 
+            tekst5._text.setFillColor(winColor);
+            tekst13._text.setFillColor(winColor);
             p1.money += winAmount;
             winAmount = 0;
         }
@@ -1112,6 +1138,9 @@ void game::bet()
         {
             tekst5text = "    You lost :(";
             winText = "Win number: " + std::to_string(randomNum);
+            
+            tekst13._text.setFillColor(loseColor);
+            tekst5._text.setFillColor(loseColor);
             std::cout << "Przegrana\n";
         }
     }
@@ -1119,6 +1148,8 @@ void game::bet()
     {
         tekst5text = "    You lost :(";
         winText = "Win number: " + std::to_string(randomNum);
+        tekst13._text.setFillColor(loseColor);
+        tekst5._text.setFillColor(loseColor);
         std::cout << "Przegrana\n";
     }
 

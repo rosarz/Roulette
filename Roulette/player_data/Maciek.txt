@@ -1,0 +1,4 @@
+Nickname: Maciek
+Money: 550
+Bet: 0
+MaxWin: 100

@@ -1,4 +1,4 @@
 Nickname: Filip
-Money: 550
-Bet: 50
-Max Win: 200
+Money: 7800
+Bet: 200
+MaxWin: 2000
