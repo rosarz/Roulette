@@ -1,6 +1,10 @@
 # :game_die: Roulette Game 
 Classic roulette game based on SFML engine 
 
+Update 1.3 / 08.07
++ updated MaxWin loading
++ changed colors if player wins or lose
+
 Update 1.2 / 04.07
 + reworked the animation to work perfectly
 + reworked the saveing system to be easy to read from normal system UI
