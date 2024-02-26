@@ -1,5 +1,12 @@
 # :game_die: Roulette Game 
-Classic roulette game based on SFML engine 
+Classic roulette game is an interactive roulette game written in C++. Users can place bets on various numbers and colors, then watch as the roulette wheel spins to determine if they've won.
+
+Main Features
+1.	Interactive Roulette Game: Users can place bets on various numbers and colors, then watch as the roulette wheel spins to determine if they've won.
+2.	Saving and Loading Player Data: Player data, such as username, account balance, last bet, and highest win, are saved and can be loaded later.
+3.	Animations: The project includes animations, such as the spinning roulette wheel.
+
+The project is written in C++ using the SFML library for graphics and user interaction. The standard C++ library is used for managing player data.
 
 ## How the game looks like 
 
