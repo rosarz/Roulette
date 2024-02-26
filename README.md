@@ -1,6 +1,18 @@
 # :game_die: Roulette Game 
 Classic roulette game based on SFML engine 
 
+## How the game looks like 
+
+### Main menu
+![image](https://github.com/rosarz/Roulette/assets/40793013/5c9791f9-d8b9-4574-b28e-b639053e5e5e)
+
+### Settings
+![image](https://github.com/rosarz/Roulette/assets/40793013/ec98e576-d5fa-43bd-9e3a-c2dec34a313d)
+
+### Gameplay
+![image](https://github.com/rosarz/Roulette/assets/40793013/1ee93744-493f-48d8-8c3e-129b268c8b69)
+
+
 Update 1.3 / 08.07
 + updated MaxWin loading
 + changed colors if player wins or lose
